@@ -54,6 +54,12 @@ img.no-invert {
   filter: invert(100%);
 }
 
+/* --- Empêche les images marquées .no-invert d'être inversées quand le body est inversé --- */
+body.inverted img.no-invert {
+  filter: invert(100%);
+}
+
+
 
 </style>
 </head>
@@ -67,13 +73,13 @@ img.no-invert {
 <script>
 const container = document.getElementById('container');
 const params = new URLSearchParams(window.location.search);
-const currentPage = parseInt(params.get("page")) || 1;
+const currentPage = parseInt(params.get("page")) || 13;
 
 const data = [
   // Éléments fixes
-  { base:"images/homme.png", hover:"images/homme1.png", x:1740.97, y:494.29, hoverX:1740.97, hoverY:494.29, z:1, pages:[1,2,3,4,5,6,7,8,9,10,11,12], goto:10 },
-  { base:"images/livre.png", hover:"images/livre1.png", x:195.59, y:490.3, hoverX:189.90, hoverY:485.14, z:1, pages:[1,2,3,4,5,6,7,8,9,10,11,12], goto:11 },
-  { base:"images/point.png", hover:"images/point1.png", x:862.18, y:987.47, hoverX:862.00, hoverY:1001.47, z:3, pages:[1,2,3,4,5,6,7,8,9,10,11,12], goto:12 },
+  { base:"images/homme.png", hover:"images/homme1.png", x:1740.97, y:494.29, hoverX:1740.97, hoverY:494.29, z:1, pages:[1,2,3,4,5,6,7,8,9,10,11,12,13], goto:10 },
+  { base:"images/livre.png", hover:"images/livre1.png", x:195.59, y:490.3, hoverX:189.90, hoverY:485.14, z:1, pages:[1,2,3,4,5,6,7,8,9,10,11,12,13], goto:11 },
+  { base:"images/point.png", hover:"images/point1.png", x:862.18, y:987.47, hoverX:862.00, hoverY:1001.47, z:3, pages:[1,2,3,4,5,6,7,8,9,10,11,12,13], goto:12 },
 
   // Portfolio invisible par défaut
   { base:"images/portfolio1.png", hover:"images/portfolio.png", x:931.93, y:68.78, hoverX:931.93, hoverY:68.78, z:5, pages:[1,2,3,4,5,6,7,8,9,10,11,12], goto:1 },
@@ -109,14 +115,22 @@ const data = [
   // Pages finales 6–9 : boîte et nuage avec retour à page précédente
   { base:"images/boite6.png", x:1486.1633, y:289.3719, z:2, pages:[6], gotoPrev:2 },
   { base:"images/nu6.png",    x:1317.9226, y:289.3747, z:3, pages:[6] },
-  { base:"images/dshema.png",    x:968.7174, y:540.4293, z:1, pages:[6] },
+  { base:"images/p6s1.png",    x:550.27, y:359.8, z:1, pages:[6] },
   { base:"images/tp6.png",    x:1411.2405, y:93.69, z:1, pages:[6] },
+  { base:"images/p6s2.png",    x:561.8658, y:722, z:1, pages:[6] },
+  { base:"images/p6s4.png",    x:1525.1952, y:701.35, z:1, pages:[6] },
+  { base:"images/p6s3.png",    x:1077.3786, y:716.13, z:1, pages:[6] },
+  { base:"images/p6s5.png",    x:1006.9937, y:349.28, z:1, pages:[6] },
+  
   
   { base:"images/boite7.png",  x:1486.1633, y:289.3719, z:2, pages:[7], gotoPrev:3 },
   { base:"images/nu7.png",    x:1317.9226, y:289.3747, z:5, pages:[7] },
-  { base:"images/bshema.png",    x:1000.5206, y:512.922, z:1, pages:[7] },
-  { base:"images/b1.png",    x:1045.9951, y:347.2703, z:1, pages:[7] },
-  { base:"images/b2.png",    x:474.5602, y:790.6317, z:1, pages:[7] },
+  { base:"images/p7s1.png",    x:570, y:371, z:1, pages:[7] },
+  { base:"images/p7s2.png",    x:869.2619, y:734.5, z:1, pages:[7] },
+  { base:"images/p7s3.png",    x:1397.8326, y:678.3, z:1, pages:[7] },
+  { base:"images/b0.png",    x:497.2546, y:768.6, z:1, pages:[7] },
+  { base:"images/b1.png",    x:996.6583, y:373.8, z:1, pages:[7] },
+  { base:"images/b2.png",    x:1165.6233, y:821.56, z:1, pages:[7] },
   { base:"images/tp7.png",    x:1411.2405, y:93.69, z:1, pages:[7] },
   
 
@@ -131,9 +145,12 @@ const data = [
 
   { base:"images/boite9.png",  x:1486.1633, y:289.3719, z:2, pages:[9], gotoPrev:5 },
   { base:"images/nu9.png",    x:1317.9226, y:289.3747, z:1, pages:[9] },
-  { base:"images/fshema.png", x:1398.1728, y:729.6631, z:2, pages:[9] },
-  { base:"images/flab.png", x:694.5275, y:399.3908, z:2, pages:[9] },
+  { base:"images/p9s1.png", x:616.2764 ,y:347.5776, z:2, pages:[9] },
+  { base:"images/p9s2.png", x:602.7697, y:742.0771, z:2, pages:[9] },
+  { base:"images/flab.png", x:1317.3113, y:721, z:2, pages:[9] },
   { base:"images/tp9.png",    x:1411.2405, y:93.69, z:1, pages:[9] },
+
+  
 
   { base:"images/tsacha.png",    x:1411.2405, y:93.69, z:1, pages:[10] },
 
@@ -258,57 +275,8 @@ data.forEach(item => {
 });
 
 
-// === Images h101 et h102 (page 10) ===
-if (currentPage === 10) {
-  const posX = 982;
-  const posY = 518.61;
+ 
 
-  // Image visible au départ
-  const img1 = document.createElement('img');
-  img1.src = "images/h101.png";
-  img1.classList.add('img-item');
-  img1.style.left = posX + 'px';
-  img1.style.top = posY + 'px';
-  img1.style.zIndex = 2;
-  container.appendChild(img1);
-
-  // Image de remplacement (cachée au départ)
-  const img2 = document.createElement('img');
-  img2.src = "images/h102.png";
-  img2.classList.add('img-item');
-  img2.style.left = posX + 'px';
-  img2.style.top = posY + 'px';
-  img2.style.zIndex = 3;
-  img2.style.display = 'none';
-  container.appendChild(img2);
-
-  // Survol sur img1 → afficher img2
-img1.addEventListener('mouseenter', () => {
-  img1.style.display = 'none';
-  img2.style.display = 'block';
-});
-
-// Quand on sort de img2 → revenir à img1
-img2.addEventListener('mouseleave', () => {
-  img2.style.display = 'none';
-  img1.style.display = 'block';
-});
-
-// Optionnel : si on sort rapidement de img1 sans entrer sur img2
-img1.addEventListener('mouseleave', () => {
-  if(img2.style.display === 'block'){
-    img2.style.display = 'none';
-    img1.style.display = 'block';
-  }
-});
-
-
-
-  img2.addEventListener('click', () => {
-    img2.style.display = 'none';
-    img1.style.display = 'block';
-  });
-}
 // === Images interactives pour la page 11 ===
 if (currentPage === 11) {
   const offsetY = 80; // ← ajuste ici pour déplacer toutes les images vers le bas
@@ -443,7 +411,8 @@ const imagesAAjouter = [
 
 
   // Page 13
-  { base:"images/", x:900, y:500, width:250, height:180, z:2, pages:[13] }
+  { base:"images/notice.png", x:931.9288, y:70.1469, z:2, pages:[13]}
+ 
 ];
 
 // === Génération des images ===
@@ -545,7 +514,7 @@ btnG.addEventListener('click', () => {
 // === Bouton d'inversion ===
 const invertToggle = document.createElement('img');
 invertToggle.src = "images/inverser.png";
-invertToggle.classList.add('img-item', 'no-invert');
+invertToggle.classList.add('img-item', 'no-invert'); // on marque le toggle tout de suite
 invertToggle.style.left = '406.8128px';
 invertToggle.style.top = '59.1281px';
 invertToggle.style.zIndex = 4;
@@ -553,7 +522,7 @@ invertToggle.style.cursor = 'pointer';
 invertToggle.id = 'invertToggle';
 container.appendChild(invertToggle);
 
-// === Liste des images à ne jamais inverser ===
+// === Liste des images à ne jamais inverser (noms de fichier) ===
 const imagesNoInvert = [
   "boite9.png","boite6.png","boite7.png","boite8.png",
   "k72.png","k73.png","k74.png","k75.png",
@@ -561,53 +530,68 @@ const imagesNoInvert = [
   "milvi.png","lowtechlab.png","drid.png","fungilab.png",
   "milvi1.png","lowtechlab1.png","drid1.png","fungilab1.png",
   "b1.png","b2.png","flab.png",
-  "inverser.png","inverser1.png","am.png","bm.png","cm.png","dm.png",
+  "inverser.png","inverser1.png","am.png","bm.png","cm.png","dm.png","b1bis.png","b2bis.png"
 ];
 
-// === Applique la classe no-invert aux images correspondantes ===
-document.querySelectorAll('.img-item').forEach(img => {
-  const filename = img.src.split('/').pop();
-  if (imagesNoInvert.includes(filename)) {
-    img.classList.add('no-invert');
+// Fonction utilitaire : marque toutes les .img-item existantes qui correspondent
+function markNoInvert() {
+  document.querySelectorAll('.img-item').forEach(img => {
+    // protection : certaines images peuvent avoir src vide au moment de l'ajout
+    if (!img.src) return;
+    const filename = img.src.split('/').pop();
+    if (imagesNoInvert.includes(filename)) {
+      // ajoute la classe si elle n'existe pas encore
+      if (!img.classList.contains('no-invert')) img.classList.add('no-invert');
+    }
+  });
+}
+// appel initial (pour les images déjà présentes)
+markNoInvert();
+
+// observe le container pour attraper les images ajoutées plus tard
+const mo = new MutationObserver((mutations) => {
+  let changed = false;
+  for (const m of mutations) {
+    if (m.type === 'childList' && m.addedNodes.length) {
+      changed = true;
+      break;
+    }
   }
+  if (changed) markNoInvert();
 });
+mo.observe(container, { childList: true, subtree: true });
 
 // === Gestion de l’état du mode inversé (persistant entre les pages) ===
 let invertedState = localStorage.getItem('inverted') || '1'; // 1 = inversé par défaut
-if (invertedState === '1') {
-  document.body.classList.add('inverted');
-  invertToggle.style.left = '456.8128px'; // décalage de 50px
-  invertToggle.style.top = '59.1281px';   // conserve top initial
-  invertToggle.style.transform = "translate(-50%, -50%) rotate(180deg)";
-} else {
-  document.body.classList.remove('inverted');
-  invertToggle.style.left = '406.8128px';
-  invertToggle.style.top = '59.1281px';
-  invertToggle.style.transform = "translate(-50%, -50%) rotate(0deg)";
+
+// Transition fluide sur rotation et position
+invertToggle.style.transition = "transform 0.6s ease, left 0.6s ease, top 0.6s ease";
+
+// Appliquer l’état actuel au chargement
+function applyInvertState() {
+  if (invertedState === '1') {
+    document.body.classList.add('inverted');
+    invertToggle.style.left = '456.8128px';
+    invertToggle.style.top = '59.1281px';
+    invertToggle.style.transform = "translate(-50%, -50%) rotate(180deg)";
+  } else {
+    document.body.classList.remove('inverted');
+    invertToggle.style.left = '406.8128px'; // position normale
+    invertToggle.style.top = '59.1281px';
+    invertToggle.style.transform = "translate(-50%, -50%) rotate(0deg)";
+  }
 }
 
-// Transition fluide
-invertToggle.style.transition = "all 0.6s ease";
+// Appliquer dès le chargement
+applyInvertState();
 
-// === Événement clic sur le bouton d’inversion ===
-invertToggle.addEventListener('click', (e) => {
-  e.stopPropagation();
-
-  // Inversion du corps
-  const now = document.body.classList.toggle('inverted');
-  localStorage.setItem('inverted', now ? '1' : '0');
-
-  // Rotation + déplacement
-  if (now) {
-    invertToggle.style.transform = "translate(-50%, -50%) rotate(180deg)";
-    invertToggle.style.left = '406.8128px'; // décalé de 50px
-  } else {
-    invertToggle.style.transform = "translate(-50%, -50%) rotate(0deg)";
-    invertToggle.style.left = '406.8128px'; // position normale
-  }
-
-  
+// Gestion du clic sur le bouton (persistant)
+invertToggle.addEventListener('click', () => {
+  invertedState = (invertedState === '1') ? '0' : '1';
+  localStorage.setItem('inverted', invertedState);
+  applyInvertState();
 });
+
 // === Effet de survol pour detail.png avec goto dynamique ===
 window.addEventListener('load', () => {
   document.querySelectorAll('img[src$="detail.png"]').forEach(detailImg => {
@@ -656,6 +640,507 @@ window.addEventListener('load', () => {
     }
   });
 });
+if (currentPage === 13) {
+  const sliderImagesAccueil = [
+    "images/i1.png",
+    "images/i2.png",
+    "images/i3.png",
+    "images/i4.png",
+  ];
+  let currentIndexAccueil = 0;
+
+  // Image du slider
+  const imgAccueil = document.createElement('img');
+  imgAccueil.src = sliderImagesAccueil[currentIndexAccueil];
+  imgAccueil.classList.add('img-item');
+  imgAccueil.style.position = 'absolute';
+  imgAccueil.style.left = '1000px';
+  imgAccueil.style.top = '510px';
+  imgAccueil.style.objectFit = 'cover';
+  imgAccueil.style.zIndex = '990';
+  container.appendChild(imgAccueil);
+
+  // Flèches
+  const btnGA = document.createElement('img');
+  btnGA.src = "images/boutong.png";
+  btnGA.style.position = 'absolute';
+  btnGA.style.left = '660px';
+  btnGA.style.top = '10px';
+  btnGA.style.cursor = 'pointer';
+  btnGA.style.zIndex = '1001';
+  container.appendChild(btnGA);
+
+  const btnDA = document.createElement('img');
+  btnDA.src = "images/boutond.png";
+  btnDA.style.position = 'absolute';
+  btnDA.style.left = '1100px';
+  btnDA.style.top = '40px';
+  btnDA.style.cursor = 'pointer';
+  btnDA.style.zIndex = '1001';
+  container.appendChild(btnDA);
+
+  // === Zone de survol limitée + bouton ===
+  const hoverZone = document.createElement('div');
+  hoverZone.style.position = 'absolute';
+  hoverZone.style.left = '865px';
+  hoverZone.style.top = '370px';
+  hoverZone.style.width = '200px';
+  hoverZone.style.height = '200px';
+  hoverZone.style.cursor = 'pointer';
+  hoverZone.style.background = 'transparent';
+  hoverZone.style.zIndex = '1001';
+  container.appendChild(hoverZone);
+
+  const btnParti = document.createElement('img');
+  btnParti.src = "images/parti1.png";
+  btnParti.style.position = 'absolute';
+  btnParti.style.left = '965px';
+  btnParti.style.top = '470px';
+  btnParti.style.transform = 'translate(-50%, -50%)';
+  btnParti.style.cursor = 'pointer';
+  btnParti.style.zIndex = '1002';
+  btnParti.style.display = 'none';
+  container.appendChild(btnParti);
+
+  // Affichage uniquement quand on survole la zone
+  hoverZone.addEventListener('mouseenter', () => {
+    if (currentIndexAccueil === sliderImagesAccueil.length - 1) { // seulement dernière image
+      btnParti.style.display = 'block';
+    }
+  });
+  hoverZone.addEventListener('mouseleave', () => {
+    btnParti.style.display = 'none';
+  });
+
+  btnParti.addEventListener('click', () => {
+    window.location.search = '?page=1';
+  });
+
+  // Fonction de mise à jour du slider
+  function updateSliderAccueil() {
+    imgAccueil.src = sliderImagesAccueil[currentIndexAccueil];
+    btnParti.style.display = 'none';
+    btnGA.style.display = (currentIndexAccueil === 0) ? 'none' : 'block';
+    btnDA.style.display = (currentIndexAccueil === sliderImagesAccueil.length - 1) ? 'none' : 'block';
+  }
+
+  btnDA.addEventListener('click', () => {
+    if (currentIndexAccueil < sliderImagesAccueil.length - 1) {
+      currentIndexAccueil++;
+      updateSliderAccueil();
+    }
+  });
+  btnGA.addEventListener('click', () => {
+    if (currentIndexAccueil > 0) {
+      currentIndexAccueil--;
+      updateSliderAccueil();
+    }
+  });
+
+  updateSliderAccueil();
+}
+if (currentPage === 10) {
+  const sliderImagesAccueil = [
+    "images/st1.png",
+    "images/st2.png",
+    "images/st3.png",
+    "images/st4.png",
+    "images/st5.png",
+    "images/st6.png",
+  ];
+  let currentIndexAccueil = 0;
+
+  // Image du slider
+  const imgAccueil = document.createElement('img');
+  imgAccueil.src = sliderImagesAccueil[currentIndexAccueil];
+  imgAccueil.classList.add('img-item');
+  imgAccueil.style.position = 'absolute';
+  imgAccueil.style.left = '1000px';
+  imgAccueil.style.top = '600px';
+  imgAccueil.style.objectFit = 'cover';
+  imgAccueil.style.zIndex = '990';
+  container.appendChild(imgAccueil);
+
+  // Flèches
+  const btnGA = document.createElement('img');
+  btnGA.src = "images/boutonb.png";
+  btnGA.style.position = 'absolute';
+  btnGA.style.left = '1680.34px';
+  btnGA.style.top = '630px';
+  btnGA.style.cursor = 'pointer';
+  btnGA.style.zIndex = '1001';
+  container.appendChild(btnGA);
+
+  const btnDA = document.createElement('img');
+  btnDA.src = "images/boutona.png";
+  btnDA.style.position = 'absolute';
+  btnDA.style.left = '1690.34px';
+  btnDA.style.top = '298.95px';
+  btnDA.style.cursor = 'pointer';
+  btnDA.style.zIndex = '1001';
+  container.appendChild(btnDA);
+
+  // === Zone de survol limitée + bouton ===
+  const hoverZone = document.createElement('div');
+  hoverZone.style.position = 'absolute';
+  hoverZone.style.left = '865px';
+  hoverZone.style.top = '370px';
+  hoverZone.style.width = '200px';
+  hoverZone.style.height = '200px';
+  hoverZone.style.cursor = 'pointer';
+  hoverZone.style.background = 'transparent';
+  hoverZone.style.zIndex = '1001';
+  container.appendChild(hoverZone);
+
+  const btnParti = document.createElement('img');
+  btnParti.src = "images/parti1.png";
+  btnParti.style.position = 'absolute';
+  btnParti.style.left = '10000px';
+  btnParti.style.top = '470px';
+  btnParti.style.transform = 'translate(-50%, -50%)';
+  btnParti.style.cursor = 'pointer';
+  btnParti.style.zIndex = '1002';
+  btnParti.style.display = 'none';
+  container.appendChild(btnParti);
+
+  // Affichage uniquement quand on survole la zone
+  hoverZone.addEventListener('mouseenter', () => {
+    if (currentIndexAccueil === sliderImagesAccueil.length - 1) { // seulement dernière image
+      btnParti.style.display = 'block';
+    }
+  });
+  hoverZone.addEventListener('mouseleave', () => {
+    btnParti.style.display = 'none';
+  });
+
+  btnParti.addEventListener('click', () => {
+    window.location.search = '?page=1';
+  });
+
+  // Fonction de mise à jour du slider
+  function updateSliderAccueil() {
+    imgAccueil.src = sliderImagesAccueil[currentIndexAccueil];
+    btnParti.style.display = 'none';
+    btnGA.style.display = (currentIndexAccueil === 0) ? 'none' : 'block';
+    btnDA.style.display = (currentIndexAccueil === sliderImagesAccueil.length - 1) ? 'none' : 'block';
+  }
+
+  btnDA.addEventListener('click', () => {
+    if (currentIndexAccueil < sliderImagesAccueil.length - 1) {
+      currentIndexAccueil++;
+      updateSliderAccueil();
+    }
+  });
+  btnGA.addEventListener('click', () => {
+    if (currentIndexAccueil > 0) {
+      currentIndexAccueil--;
+      updateSliderAccueil();
+    }
+  });
+
+  updateSliderAccueil();
+}
+
+if(currentPage === 9){
+  // Images à garder visibles quand le slider s'ouvre
+  const imagesBaseVisibles = [
+    "fond.png",
+    "homme.png",
+    "livre.png",
+    "point.png",
+    "portfolio1.png",
+    "inverser.png",
+
+  ];
+
+  // Création du container slider
+  const sliderContainer = document.createElement('div');
+  sliderContainer.style.position = 'absolute';
+  sliderContainer.style.left = '0';
+  sliderContainer.style.top = '0';
+  sliderContainer.style.width = '100%';
+  sliderContainer.style.height = '100%';
+  sliderContainer.style.zIndex = '1000';
+  sliderContainer.style.display = 'none';
+  container.appendChild(sliderContainer);
+
+  // Images du slider
+  const sliderImages = [
+    "images/flab1.png",
+    "images/f1r.png",
+    "images/f2r.png",
+    "images/f3r.png",
+    "images/f4r.png",
+    "images/f5r.png",
+    "images/f6r.png",
+    "images/f7r.png"
+  ];
+  let currentIndex = 0;
+
+  const sliderImg = document.createElement('img');
+  sliderImg.classList.add('no-invert'); // 👈 AJOUT
+  sliderImg.style.position = 'absolute';
+  sliderImg.style.left = '982px';
+  sliderImg.style.top = '540px';
+  sliderImg.style.transform = 'translate(-50%, -50%)';
+  sliderImg.style.zIndex = '1000';
+  sliderContainer.appendChild(sliderImg);
+
+  // Bouton précédent
+  const btnG = document.createElement('img');
+  btnG.src = "images/boutong.png";
+  btnG.classList.add // 👈 AJOUT
+  btnG.style.position = 'absolute';
+  btnG.style.left = '400px';
+  btnG.style.top = '540px';
+  btnG.style.cursor = 'pointer';
+  btnG.style.transform = 'translateY(-50%)';
+  sliderContainer.appendChild(btnG);
+
+  // Bouton suivant
+  const btnD = document.createElement('img');
+  btnD.src = "images/boutond.png";
+  btnD.classList.add // 👈 AJOUT
+  btnD.style.position = 'absolute';
+  btnD.style.left = '1490px';
+  btnD.style.top = '540px';
+  btnD.style.cursor = 'pointer';
+  btnD.style.transform = 'translateY(-50%)';
+  sliderContainer.appendChild(btnD);
+
+  // Bouton fermeture
+  const closeBtn = document.createElement('img');
+  closeBtn.src = "images/retour.png";
+  closeBtn.classList.add // 👈 AJOUT
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.left = '1550px';
+  closeBtn.style.top = '30px';
+  closeBtn.style.cursor = 'pointer';
+  sliderContainer.appendChild(closeBtn);
+
+  // Fonctions pour cacher/restaurer les images
+  function cacherImagesPourSlider() {
+    document.querySelectorAll('.img-item').forEach(img => {
+      const filename = img.src.split('/').pop();
+      if (!imagesBaseVisibles.includes(filename)) {
+        img.style.opacity = 0;
+        img.style.pointerEvents = 'none';
+      }
+    });
+  }
+
+  function restaurerImagesApresSlider() {
+    document.querySelectorAll('.img-item').forEach(img => {
+      img.style.opacity = 1;
+      img.style.pointerEvents = 'auto';
+    });
+  }
+
+  // Navigation slider
+  function updateSlider() {
+    sliderImg.src = sliderImages[currentIndex];
+    btnG.style.display = currentIndex === 0 ? 'none' : 'block';
+    btnD.style.display = currentIndex === sliderImages.length - 1 ? 'none' : 'block';
+  }
+
+  btnG.addEventListener('click', () => {
+    if(currentIndex > 0){
+      currentIndex--;
+      updateSlider();
+    }
+  });
+  btnD.addEventListener('click', () => {
+    if(currentIndex < sliderImages.length - 1){
+      currentIndex++;
+      updateSlider();
+    }
+  });
+
+  closeBtn.addEventListener('click', () => {
+    sliderContainer.style.display = 'none';
+    restaurerImagesApresSlider();
+  });
+
+  // Ouverture du slider au clic sur flab
+  const flab = document.querySelector('img[src$="flab.png"]');
+  flab.addEventListener('click', () => {
+    cacherImagesPourSlider();
+    sliderContainer.style.display = 'block';
+    currentIndex = 0;
+    updateSlider();
+  });
+
+  // Transition fluide pour les images
+  document.querySelectorAll('.img-item').forEach(img => {
+    img.style.transition = 'opacity 0.3s ease';
+  });
+}
+
+
+
+
+// Liste des images cliquables et de leurs agrandissements
+const imageLinks = {
+  "images/p6s1.png": "images/p6s1bis.png",
+  "images/p6s2.png": "images/p6s2bis.png",
+  "images/p6s3.png": "images/p6s3bis.png",
+  "images/p6s4.png": "images/p6s4bis.png",
+  "images/p6s5.png": "images/p6s5bis.png",
+
+  "images/p7s1.png": "images/p7s1bis.png",
+  "images/p7s2.png": "images/p7s2bis.png",
+  "images/p7s3.png": "images/p7s3bis.png",
+  "images/b0.png": "images/b0bis.png",
+  "images/b1.png": "images/b1bis.png",
+  "images/b2.png": "images/b2bis.png",
+
+
+  "images/p8_.png": "images/p8_zoom.png",
+  "images/p9s1.png": "images/p9s1bis.png",
+  "images/p9s2.png": "images/p9s2bis.png"
+};
+
+// Images à garder visibles
+const keepVisible = [
+  "fond.png",
+  "homme.png",
+  "livre.png",
+  "point.png",
+  "portfolio.png",
+  "inverser.png"
+];
+
+function showPopup(triggerSrc, popupSrc) {
+  // Cache les images non-keepVisible
+  document.querySelectorAll('.img-item').forEach(img => {
+    const filename = img.src.split('/').pop();
+    if (!keepVisible.includes(filename)) {
+      img.style.opacity = 0;
+      img.style.pointerEvents = 'none';
+    }
+  });
+
+  // Création container pour popup
+  const overlay = document.createElement('div');
+  overlay.style.position = 'absolute';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.zIndex = '900'; // sous les images "retour"
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  container.appendChild(overlay); // append au container principal
+
+  // Image popup
+  const popupImg = document.createElement('img');
+  popupImg.src = popupSrc;
+  popupImg.classList.add('img-item'); // même comportement que les autres images
+  popupImg.style.left = '50%';
+  popupImg.style.top = '50%';
+  popupImg.style.transform = 'translate(-50%, -50%)';
+  overlay.appendChild(popupImg);
+
+  // Bouton retour comme une image normale
+  const closeBtn = document.createElement('img');
+  closeBtn.src = "images/retour.png";
+  closeBtn.classList.add('img-item');  // ✅ se comporte comme tes autres images
+  closeBtn.style.left = '1600px';      // tu peux modifier ces valeurs comme pour fond.png
+  closeBtn.style.top = '70px';
+  closeBtn.style.cursor = 'pointer';
+  closeBtn.style.zIndex = '1000';      // au-dessus du popup
+  container.appendChild(closeBtn);     // append au container principal
+
+  // Fermeture au clic
+  closeBtn.addEventListener('click', () => {
+    overlay.remove();
+    closeBtn.remove();
+    document.querySelectorAll('.img-item').forEach(img => {
+      img.style.opacity = 1;
+      img.style.pointerEvents = 'auto';
+    });
+  });
+}
+
+// Activation sur les pages 6-7-8-9
+if ([6, 7, 8, 9].includes(currentPage)) {
+  Object.entries(imageLinks).forEach(([triggerSrc, popupSrc]) => {
+    const imgTrigger = document.querySelector(`img[src="${triggerSrc}"]`);
+    if (!imgTrigger) return;
+    imgTrigger.style.cursor = 'pointer';
+    imgTrigger.addEventListener('click', () => showPopup(triggerSrc, popupSrc));
+  });
+
+}
+
+function showPopup(triggerSrc, popupSrc) {
+  // Cache les images non-keepVisible
+  document.querySelectorAll('.img-item').forEach(img => {
+    const filename = img.src.split('/').pop();
+    if (!keepVisible.includes(filename)) {
+      img.style.opacity = 0;
+      img.style.pointerEvents = 'none';
+    }
+  });
+
+  // Création du container pour le popup
+  const overlay = document.createElement('div');
+  overlay.style.position = 'absolute';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.zIndex = '900';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  container.appendChild(overlay);
+
+  // Image popup
+  const popupImg = document.createElement('img');
+  popupImg.src = popupSrc;
+  popupImg.classList.add('img-item');
+  popupImg.style.left = '50%';
+  popupImg.style.top = '50%';
+  popupImg.style.transform = 'translate(-50%, -50%)';
+  popupImg.style.cursor = 'pointer'; // important si c'est cliquable
+  overlay.appendChild(popupImg);
+
+  // 🔗 Liens externes (seulement pour les images agrandies)
+  const externalLinks = {
+    "b1bis.png": "https://wiki.lowtechlab.org/wiki/Sciences_Participatives_:_Bioponie_d%27int%C3%A9rieur",
+    "b2bis.png": "https://wiki.lowtechlab.org/wiki/Sciences_Participatives_:_Elevage_de_grillons_comestibles",
+    "b0bis.png": "https://www.biosphere-experience.org/biosphere-urbaine/"
+  };
+
+  const popupFilename = popupSrc.split('/').pop();
+  if (externalLinks[popupFilename]) {
+    popupImg.addEventListener('click', () => {
+      window.open(externalLinks[popupFilename], '_blank');
+    });
+  }
+
+  // Bouton retour
+  const closeBtn = document.createElement('img');
+  closeBtn.src = "images/retour.png";
+  closeBtn.classList.add('img-item');
+  closeBtn.style.left = '1600px';
+  closeBtn.style.top = '70px';
+  closeBtn.style.cursor = 'pointer';
+  closeBtn.style.zIndex = '1000';
+  container.appendChild(closeBtn);
+
+  // Fermeture au clic
+  closeBtn.addEventListener('click', () => {
+    overlay.remove();
+    closeBtn.remove();
+    document.querySelectorAll('.img-item').forEach(img => {
+      img.style.opacity = 1;
+      img.style.pointerEvents = 'auto';
+    });
+  });
+}
 
 
 
