@@ -530,7 +530,7 @@ const imagesNoInvert = [
   "milvi.png","lowtechlab.png","drid.png","fungilab.png",
   "milvi1.png","lowtechlab1.png","drid1.png","fungilab1.png",
   "b1.png","b2.png","flab.png",
-  "inverser.png","inverser1.png","am.png","bm.png","cm.png","dm.png","b1bis.png","b2bis.png"
+  "inverser.png","inverser1.png","am.png","bm.png","cm.png","dm.png","b1bis.png","b2bis.png","fex1","fex2","fex3","fex4"
 ];
 
 // Fonction utilitaire : marque toutes les .img-item existantes qui correspondent
@@ -603,7 +603,7 @@ window.addEventListener('load', () => {
     hoverImg.style.zIndex = (parseInt(detailImg.style.zIndex) || 4) + 1;
     hoverImg.style.display = 'none';
     hoverImg.style.opacity = 0;
-    hoverImg.style.transition = 'opacity 0.3s ease';
+    hoverImg.style.transition = 'opacity 0s ease';
     detailImg.parentNode.appendChild(hoverImg);
 
     // Récupère l'élément data correspondant à cette image detail.png
@@ -841,7 +841,7 @@ if (currentPage === 10) {
   updateSliderAccueil();
 }
 
-if(currentPage === 9){
+if (currentPage === 9) {
   // Images à garder visibles quand le slider s'ouvre
   const imagesBaseVisibles = [
     "fond.png",
@@ -850,7 +850,48 @@ if(currentPage === 9){
     "point.png",
     "portfolio1.png",
     "inverser.png",
+  ];
 
+  // Données : chaque image-clé ouvre un slider différent
+  const slidersData = {
+    "p9s1.png": [
+      "images/p9s1bis.png",
+      "images/f1r.png",
+      "images/f2r.png",
+      "images/f3r.png",
+      "images/f4r.png",
+      "images/f5r.png",
+      "images/f6r.png",
+      "images/f7r.png",
+    ],
+    "flab.png": [
+      "images/flab1.png",
+      "images/fex1.png",
+      "images/fex2.png",
+      "images/fex3.png",
+      "images/fex4.png",
+    ],
+    "lowtech.png": [
+      "images/low1.png",
+      "images/low2.png",
+      "images/low3.png",
+    ],
+  };
+
+  // 🧩 Images à ne PAS inverser (ajoute ici celles que tu veux garder normales)
+  const imagesNonInversees = [
+       "images/f1r.png",
+      "images/f2r.png",
+      "images/f3r.png",
+      "images/f4r.png",
+      "images/f5r.png",
+      "images/f6r.png",
+      "images/f7r.png",
+    "images/flab1.png",
+    "images/fex1.png",
+      "images/fex2.png",
+      "images/fex3.png",
+      "images/fex4.png",
   ];
 
   // Création du container slider
@@ -864,32 +905,18 @@ if(currentPage === 9){
   sliderContainer.style.display = 'none';
   container.appendChild(sliderContainer);
 
-  // Images du slider
-  const sliderImages = [
-    "images/flab1.png",
-    "images/f1r.png",
-    "images/f2r.png",
-    "images/f3r.png",
-    "images/f4r.png",
-    "images/f5r.png",
-    "images/f6r.png",
-    "images/f7r.png"
-  ];
-  let currentIndex = 0;
-
+  // Élément image principale
   const sliderImg = document.createElement('img');
-  sliderImg.classList.add('no-invert'); // 👈 AJOUT
   sliderImg.style.position = 'absolute';
   sliderImg.style.left = '982px';
   sliderImg.style.top = '540px';
   sliderImg.style.transform = 'translate(-50%, -50%)';
-  sliderImg.style.zIndex = '1000';
+  sliderImg.style.zIndex = '1';
   sliderContainer.appendChild(sliderImg);
 
   // Bouton précédent
   const btnG = document.createElement('img');
   btnG.src = "images/boutong.png";
-  btnG.classList.add // 👈 AJOUT
   btnG.style.position = 'absolute';
   btnG.style.left = '400px';
   btnG.style.top = '540px';
@@ -900,25 +927,29 @@ if(currentPage === 9){
   // Bouton suivant
   const btnD = document.createElement('img');
   btnD.src = "images/boutond.png";
-  btnD.classList.add // 👈 AJOUT
   btnD.style.position = 'absolute';
   btnD.style.left = '1490px';
   btnD.style.top = '540px';
   btnD.style.cursor = 'pointer';
+  btnD.style.zIndex = '1000';
   btnD.style.transform = 'translateY(-50%)';
   sliderContainer.appendChild(btnD);
 
   // Bouton fermeture
   const closeBtn = document.createElement('img');
   closeBtn.src = "images/retour.png";
-  closeBtn.classList.add // 👈 AJOUT
   closeBtn.style.position = 'absolute';
   closeBtn.style.left = '1550px';
   closeBtn.style.top = '30px';
   closeBtn.style.cursor = 'pointer';
   sliderContainer.appendChild(closeBtn);
 
-  // Fonctions pour cacher/restaurer les images
+  // Transitions
+  document.querySelectorAll('.img-item').forEach(img => {
+    img.style.transition = 'opacity 0.3s ease';
+  });
+
+  // Fonctions de gestion d’affichage
   function cacherImagesPourSlider() {
     document.querySelectorAll('.img-item').forEach(img => {
       const filename = img.src.split('/').pop();
@@ -936,21 +967,37 @@ if(currentPage === 9){
     });
   }
 
-  // Navigation slider
+  // Variables de navigation
+  let currentSlider = [];
+  let currentIndex = 0;
+
+  // 🧠 Fonction principale du slider
   function updateSlider() {
-    sliderImg.src = sliderImages[currentIndex];
+    const currentImage = currentSlider[currentIndex];
+    sliderImg.src = currentImage;
+
+    // ✅ Vérifie si l'image doit être affichée sans inversion
+    if (imagesNonInversees.includes(currentImage)) {
+      sliderImg.classList.add('no-invert');
+    } else {
+      sliderImg.classList.remove('no-invert');
+    }
+
+    // Gestion des boutons
     btnG.style.display = currentIndex === 0 ? 'none' : 'block';
-    btnD.style.display = currentIndex === sliderImages.length - 1 ? 'none' : 'block';
+    btnD.style.display = currentIndex === currentSlider.length - 1 ? 'none' : 'block';
   }
 
+  // Navigation
   btnG.addEventListener('click', () => {
-    if(currentIndex > 0){
+    if (currentIndex > 0) {
       currentIndex--;
       updateSlider();
     }
   });
+
   btnD.addEventListener('click', () => {
-    if(currentIndex < sliderImages.length - 1){
+    if (currentIndex < currentSlider.length - 1) {
       currentIndex++;
       updateSlider();
     }
@@ -961,20 +1008,21 @@ if(currentPage === 9){
     restaurerImagesApresSlider();
   });
 
-  // Ouverture du slider au clic sur flab
-  const flab = document.querySelector('img[src$="flab.png"]');
-  flab.addEventListener('click', () => {
-    cacherImagesPourSlider();
-    sliderContainer.style.display = 'block';
-    currentIndex = 0;
-    updateSlider();
-  });
-
-  // Transition fluide pour les images
-  document.querySelectorAll('.img-item').forEach(img => {
-    img.style.transition = 'opacity 0.3s ease';
+  // Association dynamique : chaque image déclenche son slider
+  Object.keys(slidersData).forEach(triggerName => {
+    const triggerImg = document.querySelector(`img[src$="${triggerName}"]`);
+    if (triggerImg) {
+      triggerImg.addEventListener('click', () => {
+        cacherImagesPourSlider();
+        sliderContainer.style.display = 'block';
+        currentSlider = slidersData[triggerName];
+        currentIndex = 0;
+        updateSlider();
+      });
+    }
   });
 }
+
 
 
 
@@ -990,13 +1038,12 @@ const imageLinks = {
   "images/p7s1.png": "images/p7s1bis.png",
   "images/p7s2.png": "images/p7s2bis.png",
   "images/p7s3.png": "images/p7s3bis.png",
-  "images/b0.png": "images/b0bis.png",
+  "images/b0.png": "images/b0bis1.png",
   "images/b1.png": "images/b1bis.png",
   "images/b2.png": "images/b2bis.png",
 
 
   "images/p8_.png": "images/p8_zoom.png",
-  "images/p9s1.png": "images/p9s1bis.png",
   "images/p9s2.png": "images/p9s2bis.png"
 };
 
@@ -1047,7 +1094,7 @@ function showPopup(triggerSrc, popupSrc) {
   closeBtn.src = "images/retour.png";
   closeBtn.classList.add('img-item');  // ✅ se comporte comme tes autres images
   closeBtn.style.left = '1600px';      // tu peux modifier ces valeurs comme pour fond.png
-  closeBtn.style.top = '70px';
+  closeBtn.style.top = '60px';
   closeBtn.style.cursor = 'pointer';
   closeBtn.style.zIndex = '1000';      // au-dessus du popup
   container.appendChild(closeBtn);     // append au container principal
