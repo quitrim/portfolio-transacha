@@ -137,11 +137,11 @@ const data = [
   { base:"images/boite8.png",  x:1486.1633, y:289.3719, z:2, pages:[8], gotoPrev:4 },
   { base:"images/nu8.png",   x:1317.9226, y:289.3747, z:5, pages:[8] },
   { base:"images/tp8.png",    x:1411.2405, y:93.69, z:1, pages:[8] },
-  { base:"images/am.png",    x:768.8178, y:319.4195, z:1, pages:[8] },
-  { base:"images/bm.png",    x:1170.1385, y:840.8797, z:1, pages:[8] },
-  { base:"images/cm.png",    x:415.6148, y:840.4452, z:1, pages:[8] },
-  { base:"images/dm.png",    x:1433.5674, y:565.0668, z:1, pages:[8] },
-  { base:"images/mshema.png",    x:946.422, y:527.4315, z:1, pages:[8] },
+  { base:"images/fp8.png",    x:932.522, y:532, z:1, pages:[8] },
+   { base:"images/p81.png",    x:730, y:284, z:1, pages:[8] },
+   { base:"images/p82.png",    x:427.7295, y:781, z:1, pages:[8] },
+   { base:"images/p83.png",    x:1215.722, y:767.76, z:1, pages:[8] },
+
 
   { base:"images/boite9.png",  x:1486.1633, y:289.3719, z:2, pages:[9], gotoPrev:5 },
   { base:"images/nu9.png",    x:1317.9226, y:289.3747, z:1, pages:[9] },
@@ -530,7 +530,7 @@ const imagesNoInvert = [
   "milvi.png","lowtechlab.png","drid.png","fungilab.png",
   "milvi1.png","lowtechlab1.png","drid1.png","fungilab1.png",
   "b1.png","b2.png","flab.png",
-  "inverser.png","inverser1.png","am.png","bm.png","cm.png","dm.png","b1bis.png","b2bis.png","fex1","fex2","fex3","fex4"
+  "inverser.png","inverser1.png","am.png","bm.png","cm.png","dm.png","b1bis.png","b2bis.png","fex1.png","fex2.png","fex3.png","fex4.png","p81.png","p82.png","p83.png",
 ];
 
 // Fonction utilitaire : marque toutes les .img-item existantes qui correspondent
@@ -741,6 +741,7 @@ if (currentPage === 13) {
 }
 if (currentPage === 10) {
   const sliderImagesAccueil = [
+     "images/st0.png",
     "images/st1.png",
     "images/st2.png",
     "images/st3.png",
@@ -756,7 +757,7 @@ if (currentPage === 10) {
   imgAccueil.classList.add('img-item');
   imgAccueil.style.position = 'absolute';
   imgAccueil.style.left = '1000px';
-  imgAccueil.style.top = '600px';
+  imgAccueil.style.top = '550px';
   imgAccueil.style.objectFit = 'cover';
   imgAccueil.style.zIndex = '990';
   container.appendChild(imgAccueil);
@@ -841,21 +842,137 @@ if (currentPage === 10) {
   updateSliderAccueil();
 }
 
-if (currentPage === 9) {
-  // Images à garder visibles quand le slider s'ouvre
-  const imagesBaseVisibles = [
-    "fond.png",
-    "homme.png",
-    "livre.png",
-    "point.png",
-    "portfolio1.png",
-    "inverser.png",
-  ];
 
-  // Données : chaque image-clé ouvre un slider différent
-  const slidersData = {
-    "p9s1.png": [
-      "images/p9s1bis.png",
+// ✅ CONFIGURATION DES SLIDERS PAR PAGE
+const slidersConfig = {
+  6: {
+    imagesBaseVisibles: [
+      "fond.png", "titre6.png", "texte6.png"
+    ],
+    slidersData: {
+      "p6s1.png": [
+        "images/p6s1_1.png",
+        "images/p6s1_2.png",
+        "images/p6s1_3.png",
+      ],
+      "p6s2.png": [
+        "images/p6s2_1.png",
+        "images/p6s2_2.png",
+      ],
+    },
+    imagesNonInversees: [
+      "images/p6s1_2.png", "images/p6s2_1.png"
+    ]
+  },
+
+  7: {
+    imagesBaseVisibles: [
+      "fond.png", "titre7.png", "texte7.png"
+    ],
+    slidersData: {
+      "p7s1.png": [
+        "images/p7s1_1.png",
+        "images/p7s1_2.png",
+      ]
+    },
+    imagesNonInversees: []
+  },
+
+  8: {
+    imagesBaseVisibles: [
+     "fond.png",
+      "homme.png",
+      "livre.png",
+      "point.png",
+      "portfolio1.png",
+      "inverser.png",
+    ],
+    slidersData: {
+      "p81.png": [
+        "images/p811.png",
+        "images/p812.png",
+        "images/p813.png",
+        "images/p814.png",
+        "images/p815.png",
+      ],
+      "p82.png": [
+        "images/p821.png",
+        "images/p822.png",
+        "images/p823.png",
+        "images/p824.png",
+        "images/p825.png",
+        "images/p826.png",
+        "images/p827.png",
+      ],
+      "p83.png": [
+        "images/p831.png",
+        "images/p832.png",
+        "images/p833.png",
+        "images/p834.png",
+        "images/p836.png",
+        "images/p837.png",
+        "images/p838.png",
+      ],
+
+    },
+    imagesNonInversees: [
+      "images/p811.png",
+      "images/p812.png",
+      "images/p813.png",
+      "images/p814.png",
+       "images/p815.png",
+      
+      "images/p821.png",
+      "images/p822.png",
+      "images/p823.png",
+      "images/p824.png",
+      "images/p825.png",
+      "images/p826.png",
+      "images/p827.png",
+
+      "images/p831.png",
+      "images/p833.png",
+      "images/p834.png",
+      "images/p836.png",
+      "images/p837.png",
+      "images/p838.png",
+    ]
+  },
+
+  9: {
+    imagesBaseVisibles: [
+      "fond.png",
+      "homme.png",
+      "livre.png",
+      "point.png",
+      "portfolio1.png",
+      "inverser.png",
+    ],
+    slidersData: {
+      "p9s1.png": [
+        "images/p9s1bis.png",
+        "images/f1r.png",
+        "images/f2r.png",
+        "images/f3r.png",
+        "images/f4r.png",
+        "images/f5r.png",
+        "images/f6r.png",
+        "images/f7r.png",
+      ],
+      "flab.png": [
+        "images/flab1.png",
+        "images/fex1.png",
+        "images/fex2.png",
+        "images/fex3.png",
+        "images/fex4.png",
+      ],
+      "lowtech.png": [
+        "images/low1.png",
+        "images/low2.png",
+        "images/low3.png",
+      ],
+    },
+    imagesNonInversees: [
       "images/f1r.png",
       "images/f2r.png",
       "images/f3r.png",
@@ -863,93 +980,90 @@ if (currentPage === 9) {
       "images/f5r.png",
       "images/f6r.png",
       "images/f7r.png",
-    ],
-    "flab.png": [
       "images/flab1.png",
       "images/fex1.png",
       "images/fex2.png",
       "images/fex3.png",
       "images/fex4.png",
-    ],
-    "lowtech.png": [
-      "images/low1.png",
-      "images/low2.png",
-      "images/low3.png",
-    ],
-  };
 
-  // 🧩 Images à ne PAS inverser (ajoute ici celles que tu veux garder normales)
-  const imagesNonInversees = [
-       "images/f1r.png",
-      "images/f2r.png",
-      "images/f3r.png",
-      "images/f4r.png",
-      "images/f5r.png",
-      "images/f6r.png",
-      "images/f7r.png",
-    "images/flab1.png",
-    "images/fex1.png",
-      "images/fex2.png",
-      "images/fex3.png",
-      "images/fex4.png",
-  ];
+      
+      
+    ]
+  }
+};
 
-  // Création du container slider
+// ⚙️ Active le slider si la page actuelle est configurée
+if (slidersConfig[currentPage]) {
+  const { imagesBaseVisibles, slidersData, imagesNonInversees } = slidersConfig[currentPage];
+  setupSliderForPage({ pageNumber: currentPage, imagesBaseVisibles, slidersData, imagesNonInversees });
+}
+
+// 🧠 Fonction principale du slider (réutilisable pour toutes les pages)
+function setupSliderForPage({ pageNumber, imagesBaseVisibles, slidersData, imagesNonInversees }) {
+  const container = document.getElementById('container');
+  if (!container) return;
+
+  // --- Création du container slider ---
   const sliderContainer = document.createElement('div');
-  sliderContainer.style.position = 'absolute';
-  sliderContainer.style.left = '0';
-  sliderContainer.style.top = '0';
-  sliderContainer.style.width = '100%';
-  sliderContainer.style.height = '100%';
-  sliderContainer.style.zIndex = '1000';
-  sliderContainer.style.display = 'none';
+  Object.assign(sliderContainer.style, {
+    position: 'absolute',
+    left: '0', top: '0',
+    width: '100%', height: '100%',
+    zIndex: '1000',
+    display: 'none',
+  });
   container.appendChild(sliderContainer);
 
-  // Élément image principale
+  // --- Image principale ---
   const sliderImg = document.createElement('img');
-  sliderImg.style.position = 'absolute';
-  sliderImg.style.left = '982px';
-  sliderImg.style.top = '540px';
-  sliderImg.style.transform = 'translate(-50%, -50%)';
-  sliderImg.style.zIndex = '1';
+  Object.assign(sliderImg.style, {
+    position: 'absolute',
+    left: '982px',
+    top: '540px',
+    transform: 'translate(-50%, -50%)',
+    zIndex: '1',
+  });
   sliderContainer.appendChild(sliderImg);
 
-  // Bouton précédent
+  // --- Boutons navigation ---
   const btnG = document.createElement('img');
   btnG.src = "images/boutong.png";
-  btnG.style.position = 'absolute';
-  btnG.style.left = '400px';
-  btnG.style.top = '540px';
-  btnG.style.cursor = 'pointer';
-  btnG.style.transform = 'translateY(-50%)';
+  Object.assign(btnG.style, {
+    position: 'absolute',
+    left: '350px',
+    top: '540px',
+    cursor: 'pointer',
+     zIndex: '1000',
+    transform: 'translateY(-50%)',
+  });
   sliderContainer.appendChild(btnG);
 
-  // Bouton suivant
   const btnD = document.createElement('img');
   btnD.src = "images/boutond.png";
-  btnD.style.position = 'absolute';
-  btnD.style.left = '1490px';
-  btnD.style.top = '540px';
-  btnD.style.cursor = 'pointer';
-  btnD.style.zIndex = '1000';
-  btnD.style.transform = 'translateY(-50%)';
+  Object.assign(btnD.style, {
+    position: 'absolute',
+    left: '1490px',
+    top: '540px',
+    cursor: 'pointer',
+    zIndex: '1000',
+    transform: 'translateY(-50%)',
+  });
   sliderContainer.appendChild(btnD);
 
-  // Bouton fermeture
   const closeBtn = document.createElement('img');
   closeBtn.src = "images/retour.png";
-  closeBtn.style.position = 'absolute';
-  closeBtn.style.left = '1550px';
-  closeBtn.style.top = '30px';
-  closeBtn.style.cursor = 'pointer';
+  Object.assign(closeBtn.style, {
+    position: 'absolute',
+    left: '1550px',
+    top: '30px',
+    cursor: 'pointer',
+  });
   sliderContainer.appendChild(closeBtn);
 
-  // Transitions
   document.querySelectorAll('.img-item').forEach(img => {
     img.style.transition = 'opacity 0.3s ease';
   });
 
-  // Fonctions de gestion d’affichage
   function cacherImagesPourSlider() {
     document.querySelectorAll('.img-item').forEach(img => {
       const filename = img.src.split('/').pop();
@@ -967,28 +1081,23 @@ if (currentPage === 9) {
     });
   }
 
-  // Variables de navigation
   let currentSlider = [];
   let currentIndex = 0;
 
-  // 🧠 Fonction principale du slider
   function updateSlider() {
     const currentImage = currentSlider[currentIndex];
     sliderImg.src = currentImage;
 
-    // ✅ Vérifie si l'image doit être affichée sans inversion
     if (imagesNonInversees.includes(currentImage)) {
       sliderImg.classList.add('no-invert');
     } else {
       sliderImg.classList.remove('no-invert');
     }
 
-    // Gestion des boutons
     btnG.style.display = currentIndex === 0 ? 'none' : 'block';
     btnD.style.display = currentIndex === currentSlider.length - 1 ? 'none' : 'block';
   }
 
-  // Navigation
   btnG.addEventListener('click', () => {
     if (currentIndex > 0) {
       currentIndex--;
@@ -1008,7 +1117,6 @@ if (currentPage === 9) {
     restaurerImagesApresSlider();
   });
 
-  // Association dynamique : chaque image déclenche son slider
   Object.keys(slidersData).forEach(triggerName => {
     const triggerImg = document.querySelector(`img[src$="${triggerName}"]`);
     if (triggerImg) {
@@ -1022,7 +1130,6 @@ if (currentPage === 9) {
     }
   });
 }
-
 
 
 
@@ -1158,7 +1265,7 @@ function showPopup(triggerSrc, popupSrc) {
   const externalLinks = {
     "b1bis.png": "https://wiki.lowtechlab.org/wiki/Sciences_Participatives_:_Bioponie_d%27int%C3%A9rieur",
     "b2bis.png": "https://wiki.lowtechlab.org/wiki/Sciences_Participatives_:_Elevage_de_grillons_comestibles",
-    "b0bis.png": "https://www.biosphere-experience.org/biosphere-urbaine/"
+    "b0bis.png": "https://biosphere-experience.org",
   };
 
   const popupFilename = popupSrc.split('/').pop();
