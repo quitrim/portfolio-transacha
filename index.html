@@ -274,58 +274,142 @@ data.forEach(item => {
   }
 });
 
-
- 
-
-// === Images interactives pour la page 11 ===
 if (currentPage === 11) {
-  const offsetY = 80; // ← ajuste ici pour déplacer toutes les images vers le bas
+  const container = document.querySelector('#container');
 
-  const imagesPage11 = [
-    { base:"images/1.png", hover:"images/11.png", x:456.2596, y:313.8249 + offsetY },
-    { base:"images/2.png", hover:"images/21.png", x:733.976, y:306.8258 + offsetY },
-    { base:"images/3.png", hover:"images/31.png", x:996.4227, y:308.9856 + offsetY },
-    { base:"images/4.png", hover:"images/41.png", x:1258.0986, y:306.8258 + offsetY },
-    { base:"images/5.png", hover:"images/51.png", x:1507.3496, y:292.1161 + offsetY },
-    { base:"images/6.png", hover:"images/61.png", x:456.2596, y:653.2627 + offsetY },
-    { base:"images/7.png", hover:"images/71.png", x:728.9383, y:646.3968 + offsetY },
-    { base:"images/8.png", hover:"images/81.png", x:993.5184, y:646.3968 + offsetY },
-    { base:"images/9.png", hover:"images/91.png", x:1248.722, y:658.2385 + offsetY },
-    { base:"images/10.png", hover:"images/101.png", x:1530.7772, y:646.3968 + offsetY }
+  const imagesSlider = [
+    { base: "images/1.png", hover: "images/11t.png" },
+    { base: "images/2.png", hover: "images/21.png" },
+    { base: "images/3.png", hover: "images/31.png" },
+    { base: "images/4.png", hover: "images/41.png" },
+    { base: "images/5.png", hover: "images/51.png" },
+    { base: "images/6.png", hover: "images/61.png" },
+    { base: "images/7.png", hover: "images/71.png" },
+    { base: "images/8.png", hover: "images/81.png" },
+    { base: "images/9.png", hover: "images/91.png" },
+    { base: "images/10.png", hover: "images/101.png" }
   ];
 
-  imagesPage11.forEach(item => {
-    // Image de base
-    const base = document.createElement('img');
-    base.src = item.base;
-    base.classList.add('img-item');
-    base.style.left = item.x + 'px';
-    base.style.top = item.y + 'px';
-    base.style.zIndex = 2;
-    container.appendChild(base);
+  // --- Variables modifiables ---
+  const wrapperWidth = 1400;  // largeur de la fenêtre visible
+  const wrapperHeight = 500; // hauteur de la fenêtre visible
+  const imageWidth = 300;    // largeur des images
+  const imageHeight = 400;   // hauteur des images
+  const gap = 100;            // espace entre images
+  const imagesPerRow = 3;    // nombre d'images par ligne
+  const visibleRows = 1;     // nombre de lignes visibles
 
-    // Image de survol
-    const hover = document.createElement('img');
-    hover.src = item.hover;
-    hover.classList.add('img-item');
-    hover.style.left = item.x + 'px';
-    hover.style.top = item.y + 'px';
-    hover.style.zIndex = 3;
-    hover.style.display = 'none';
-    container.appendChild(hover);
+  // --- Conteneur visible ---
+  const sliderWrapper = document.createElement('div');
+  sliderWrapper.style.position = 'absolute';
+  sliderWrapper.style.top = '330px';
+  sliderWrapper.style.left = '452px';
+  sliderWrapper.style.width = `${wrapperWidth}px`;
+  sliderWrapper.style.height = `${wrapperHeight}px`;
+  sliderWrapper.style.overflow = 'hidden';
+  container.appendChild(sliderWrapper);
 
-    // Gestion du survol
-    base.addEventListener('mouseover', () => {
-      base.style.display = 'none';
-      hover.style.display = 'block';
-    });
+  const sliderTrack = document.createElement('div');
+  sliderTrack.style.display = 'flex';
+  sliderTrack.style.flexDirection = 'column';
+  sliderTrack.style.transition = 'transform 0.5s ease';
+  sliderWrapper.appendChild(sliderTrack);
 
-    hover.addEventListener('mouseout', () => {
+  const rowCount = Math.ceil(imagesSlider.length / imagesPerRow);
+
+  // --- Création des lignes ---
+  for (let i = 0; i < rowCount; i++) {
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.gap = `${gap}px`;
+    row.style.marginBottom = `${gap}px`;
+
+    for (let j = 0; j < imagesPerRow; j++) {
+      const index = i * imagesPerRow + j;
+      if (index >= imagesSlider.length) break;
+
+      const imgObj = imagesSlider[index];
+      const slide = document.createElement('div');
+      slide.style.position = 'relative';
+      slide.style.width = `${imageWidth}px`;
+      slide.style.height = `${imageHeight}px`;
+
+      // Image de base
+      const img = document.createElement('img');
+      img.src = imgObj.base;
+      img.style.width = `${imageWidth}px`;
+      img.style.height = `${imageHeight}px`;
+      img.style.cursor = 'pointer';
+      slide.appendChild(img);
+
+      // Image hover
+      const hover = document.createElement('img');
+      hover.src = imgObj.hover;
+      hover.style.position = 'absolute';
+      hover.style.top = '0';
+      hover.style.left = '0';
+      hover.style.width = `${imageWidth}px`;
+      hover.style.height = `${imageHeight}px`;
       hover.style.display = 'none';
-      base.style.display = 'block';
-    });
+      slide.appendChild(hover);
+
+// Survol : l'image de base disparaît, hover apparaît
+slide.addEventListener('mouseenter', () => {
+    img.style.display = 'none';   // cacher l'image de base
+    hover.style.display = 'block'; // afficher le hover
+});
+slide.addEventListener('mouseleave', () => {
+    hover.style.display = 'none';  // cacher le hover
+    img.style.display = 'block';   // remettre l'image de base
+});
+
+
+      row.appendChild(slide);
+    }
+
+    sliderTrack.appendChild(row);
+  }
+
+  let currentIndex = 0;
+
+  // --- Flèches ---
+  const btnUp = document.createElement('img');
+  btnUp.src = "images/boutona.png";
+  btnUp.style.position = 'absolute';
+  btnUp.style.left = '152px';
+  btnUp.style.top = '300px';
+  btnUp.style.cursor = 'pointer';
+  container.appendChild(btnUp);
+
+  const btnDown = document.createElement('img');
+  btnDown.src = "images/boutonb.png";
+  btnDown.style.position = 'absolute';
+  btnDown.style.left = '132px';
+  btnDown.style.top = '640px';
+  btnDown.style.cursor = 'pointer';
+  container.appendChild(btnDown);
+
+  function updateSlider() {
+    const firstRow = sliderTrack.children[currentIndex];
+    const rowHeight = firstRow ? firstRow.offsetHeight + gap : 0;
+    sliderTrack.style.transform = `translateY(-${currentIndex * rowHeight}px)`;
+    btnUp.style.display = currentIndex === 0 ? 'none' : 'block';
+    btnDown.style.display = currentIndex + visibleRows >= rowCount ? 'none' : 'block';
+  }
+
+  btnUp.addEventListener('click', () => {
+    if (currentIndex > 0) currentIndex--;
+    updateSlider();
   });
+
+  btnDown.addEventListener('click', () => {
+    if (currentIndex + visibleRows < rowCount) currentIndex++;
+    updateSlider();
+  });
+
+  updateSlider();
 }
+
 
 // === Audio et navigation pour pages 6 à 9 ===
 if(currentPage >= 6 && currentPage <= 9){
