@@ -763,65 +763,68 @@ if (currentPage === 13) {
   btnDA.style.zIndex = '1001';
   container.appendChild(btnDA);
 
-  // === Zone de survol limitée + bouton ===
-  const hoverZone = document.createElement('div');
-  hoverZone.style.position = 'absolute';
-  hoverZone.style.left = '865px';
-  hoverZone.style.top = '370px';
-  hoverZone.style.width = '200px';
-  hoverZone.style.height = '200px';
-  hoverZone.style.cursor = 'pointer';
-  hoverZone.style.background = 'transparent';
-  hoverZone.style.zIndex = '1001';
-  container.appendChild(hoverZone);
+// === Zone de survol limitée + bouton ===
+const hoverZone = document.createElement('div');
+hoverZone.style.position = 'absolute';
+hoverZone.style.left = '865px';
+hoverZone.style.top = '370px';
+hoverZone.style.width = '300px';
+hoverZone.style.height = '300px';
+hoverZone.style.cursor = 'pointer';
+hoverZone.style.background = 'transparent';
+hoverZone.style.zIndex = '10002';
+container.appendChild(hoverZone);
 
-  const btnParti = document.createElement('img');
-  btnParti.src = "images/parti1.png";
-  btnParti.style.position = 'absolute';
-  btnParti.style.left = '965px';
-  btnParti.style.top = '470px';
-  btnParti.style.transform = 'translate(-50%, -50%)';
-  btnParti.style.cursor = 'pointer';
-  btnParti.style.zIndex = '1002';
-  btnParti.style.display = 'none';
-  container.appendChild(btnParti);
+const btnParti = document.createElement('img');
+btnParti.src = "images/parti1.png";
+btnParti.style.position = 'absolute';
+btnParti.style.left = '35%';
+btnParti.style.top = ' 35%';
+btnParti.style.transform = 'translate(-50%, -50%)';
+btnParti.style.cursor = 'pointer';
+btnParti.style.zIndex = '10002';
+btnParti.style.display = 'none';
+hoverZone.appendChild(btnParti); // bouton DANS la zone de survol
 
-  // Affichage uniquement quand on survole la zone
-  hoverZone.addEventListener('mouseenter', () => {
-    if (currentIndexAccueil === sliderImagesAccueil.length - 1) { // seulement dernière image
-      btnParti.style.display = 'block';
-    }
-  });
-  hoverZone.addEventListener('mouseleave', () => {
-    btnParti.style.display = 'none';
-  });
-
-  btnParti.addEventListener('click', () => {
-    window.location.search = '?page=1';
-  });
-
-  // Fonction de mise à jour du slider
-  function updateSliderAccueil() {
-    imgAccueil.src = sliderImagesAccueil[currentIndexAccueil];
-    btnParti.style.display = 'none';
-    btnGA.style.display = (currentIndexAccueil === 0) ? 'none' : 'block';
-    btnDA.style.display = (currentIndexAccueil === sliderImagesAccueil.length - 1) ? 'none' : 'block';
+// Affichage uniquement quand on survole la zone ET dernière image
+hoverZone.addEventListener('mouseenter', () => {
+  if (currentIndexAccueil === sliderImagesAccueil.length - 1) {
+    btnParti.style.display = 'block';
   }
+});
+hoverZone.addEventListener('mouseleave', () => {
+  btnParti.style.display = 'none';
+});
 
-  btnDA.addEventListener('click', () => {
-    if (currentIndexAccueil < sliderImagesAccueil.length - 1) {
-      currentIndexAccueil++;
-      updateSliderAccueil();
-    }
-  });
-  btnGA.addEventListener('click', () => {
-    if (currentIndexAccueil > 0) {
-      currentIndexAccueil--;
-      updateSliderAccueil();
-    }
-  });
+// Click sur le bouton
+btnParti.addEventListener('click', () => {
+  window.location.search = '?page=1';
+});
 
-  updateSliderAccueil();
+// Fonction de mise à jour du slider
+function updateSliderAccueil() {
+  imgAccueil.src = sliderImagesAccueil[currentIndexAccueil];
+  btnGA.style.display = (currentIndexAccueil === 0) ? 'none' : 'block';
+  btnDA.style.display = (currentIndexAccueil === sliderImagesAccueil.length - 1) ? 'none' : 'block';
+}
+
+// Navigation avec flèches
+btnDA.addEventListener('click', () => {
+  if (currentIndexAccueil < sliderImagesAccueil.length - 1) {
+    currentIndexAccueil++;
+    updateSliderAccueil();
+  }
+});
+btnGA.addEventListener('click', () => {
+  if (currentIndexAccueil > 0) {
+    currentIndexAccueil--;
+    updateSliderAccueil();
+  }
+});
+
+// Initialisation
+updateSliderAccueil();
+
 }
 if (currentPage === 10) {
   const sliderImagesAccueil = [
@@ -878,7 +881,7 @@ if (currentPage === 10) {
   container.appendChild(hoverZone);
 
   const btnParti = document.createElement('img');
-  btnParti.src = "images/parti1.png";
+  btnParti.src = "images/parti.png";
   btnParti.style.position = 'absolute';
   btnParti.style.left = '10000px';
   btnParti.style.top = '470px';
@@ -929,35 +932,14 @@ if (currentPage === 10) {
 
 // ✅ CONFIGURATION DES SLIDERS PAR PAGE
 const slidersConfig = {
-  6: {
-    imagesBaseVisibles: [
-      "fond.png", "titre6.png", "texte6.png"
-    ],
-    slidersData: {
-      "p6s1.png": [
-        "images/p6s1_1.png",
-        "images/p6s1_2.png",
-        "images/p6s1_3.png",
-      ],
-      "p6s2.png": [
-        "images/p6s2_1.png",
-        "images/p6s2_2.png",
-      ],
-    },
-    imagesNonInversees: [
-      "images/p6s1_2.png", "images/p6s2_1.png"
-    ]
-  },
+
 
   7: {
     imagesBaseVisibles: [
-      "fond.png", "titre7.png", "texte7.png"
+     
     ],
     slidersData: {
-      "p7s1.png": [
-        "images/p7s1_1.png",
-        "images/p7s1_2.png",
-      ]
+      
     },
     imagesNonInversees: []
   },
