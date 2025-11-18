@@ -278,23 +278,29 @@ if (currentPage === 11) {
   const container = document.querySelector('#container');
 
   const imagesSlider = [
-    { base: "images/1.png", hover: "images/11t.png" },
-    { base: "images/2.png", hover: "images/21.png" },
-    { base: "images/3.png", hover: "images/31.png" },
-    { base: "images/4.png", hover: "images/41.png" },
-    { base: "images/5.png", hover: "images/51.png" },
-    { base: "images/6.png", hover: "images/61.png" },
-    { base: "images/7.png", hover: "images/71.png" },
-    { base: "images/8.png", hover: "images/81.png" },
-    { base: "images/9.png", hover: "images/91.png" },
-    { base: "images/10.png", hover: "images/101.png" }
+    { base: "images/gt1.png", mid: "images/gt2.png", hover: "images/gt3.png" },
+    { base: "images/rik1.png", mid: "images/rik2.png", hover: "images/rik3.png" },
+    { base: "images/pa1.png", mid: "images/pa2.png", hover: "images/pa3.png" },
+
+    { base: "images/pu1.png", mid: "images/pu2.png", hover: "images/pu3.png" },
+    { base: "images/iv1.png", mid: "images/iv2.png", hover: "images/iv3.png" },
+     { base: "images/m1.png", mid: "images/m2.png", hover: "images/m3.png" },
+
+    { base: "images/po1.png", mid: "images/po2.png", hover: "images/po3.png" },
+    { base: "images/oa1.png", mid: "images/oa2.png", hover: "images/oa3.png" },
+     { base: "images/el1.png", mid: "images/el2.png", hover: "images/el3.png" },
+
+     { base: "images/e1.png", mid: "images/e2.png", hover: "images/e3.png" },
+    { base: "images/p1.png", mid: "images/p2.png", hover: "images/p3.png" },
+     { base: "images/d1.png", mid: "images/d2.png", hover: "images/d3.png" },
+    
   ];
 
   // --- Variables modifiables ---
   const wrapperWidth = 1400;  // largeur de la fenêtre visible
-  const wrapperHeight = 500; // hauteur de la fenêtre visible
+  const wrapperHeight = 400; // hauteur de la fenêtre visible
   const imageWidth = 300;    // largeur des images
-  const imageHeight = 400;   // hauteur des images
+  const imageHeight = 342;   // hauteur des images
   const gap = 100;            // espace entre images
   const imagesPerRow = 3;    // nombre d'images par ligne
   const visibleRows = 1;     // nombre de lignes visibles
@@ -342,6 +348,17 @@ if (currentPage === 11) {
       img.style.cursor = 'pointer';
       slide.appendChild(img);
 
+      // Image intermédiaire (transition)
+const mid = document.createElement('img');
+mid.src = imgObj.mid;
+mid.style.position = 'absolute';
+mid.style.top = '0';
+mid.style.left = '0';
+mid.style.width = `${imageWidth}px`;
+mid.style.height = `${imageHeight}px`;
+mid.style.display = 'none';
+slide.appendChild(mid);
+
       // Image hover
       const hover = document.createElement('img');
       hover.src = imgObj.hover;
@@ -353,17 +370,41 @@ if (currentPage === 11) {
       hover.style.display = 'none';
       slide.appendChild(hover);
 
-// Survol : l'image de base disparaît, hover apparaît
+let t1, t2;
+
+// ENTRÉE : base → mid → hover
 slide.addEventListener('mouseenter', () => {
-    img.style.display = 'none';   // cacher l'image de base
-    hover.style.display = 'block'; // afficher le hover
+  clearTimeout(t1);
+  clearTimeout(t2);
+
+  // base disparaît, mid apparaît
+  img.style.display = 'none';
+  hover.style.display = 'none';
+  mid.style.display = 'block';
+
+  // mid → hover après 0,25 sec
+  t1 = setTimeout(() => {
+    mid.style.display = 'none';
+    hover.style.display = 'block';
+  }, 250);
 });
+
+// SORTIE : hover → mid → base
 slide.addEventListener('mouseleave', () => {
-    hover.style.display = 'none';  // cacher le hover
-    img.style.display = 'block';   // remettre l'image de base
+  clearTimeout(t1);
+  clearTimeout(t2);
+
+  // hover disparaît, mid réapparaît
+  hover.style.display = 'none';
+  mid.style.display = 'block';
+  img.style.display = 'none';
+
+  // mid → base après 0,4 sec
+  t2 = setTimeout(() => {
+    mid.style.display = 'none';
+    img.style.display = 'block';
+  }, 400);
 });
-
-
       row.appendChild(slide);
     }
 
@@ -778,7 +819,7 @@ container.appendChild(hoverZone);
 const btnParti = document.createElement('img');
 btnParti.src = "images/parti1.png";
 btnParti.style.position = 'absolute';
-btnParti.style.left = '35%';
+btnParti.style.left = '35 %';
 btnParti.style.top = ' 35%';
 btnParti.style.transform = 'translate(-50%, -50%)';
 btnParti.style.cursor = 'pointer';
